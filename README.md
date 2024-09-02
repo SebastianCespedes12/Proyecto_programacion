@@ -22,6 +22,7 @@ flowchart TD
   AN-->|si|M{Se selecciona al azar un numero de 1 a 3}
   AN-->|No|AO[Se recorre la matriz 'A']
   AO-->AP[Se añade una letra al azar a posiciones vacias]
+  AP-->AR(Fin)
   M{Se selecciona al azar un numero de 1 a 3}-->N[Opción 1]
   N-->H[Se seleccionan dos números al azar 'x','y desde 0 hasta 7']
   H-->L[Se selecciona la posicion x,y]
@@ -44,8 +45,7 @@ flowchart TD
   AB-->AK[Se selecciona un número 'n' al azar entre 3 y 'd']
   AK-->J
   AF-->AQ[i-=1]
-  AQ-->AN
-  
+  AQ-->AN 
 ```
 
 ### Solución preliminar
