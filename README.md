@@ -24,7 +24,7 @@ flowchart TD
   AO-->AP[Se añade una letra al azar a posiciones vacias]
   AP-->AR(Fin)
   M{Se selecciona al azar un numero de 1 a 3}-->N[Opción 1]
-  N-->H[Se seleccionan dos números al azar 'x','y desde 0 hasta 7']
+  N-->H[Se seleccionan dos números al azar 'x','y desde 0 hasta t-3']
   H-->L[Se selecciona la posicion x,y]
   L-->I[Se calcula la distancia horizontal 'h' hasta el fin de la fila]
   I-->F[Se selecciona un número 'n' al azar entre 3 y 'h']
@@ -33,13 +33,13 @@ flowchart TD
   J-->|Si|M
   K-->AF[Se añade cada caracter de la palabra desde x,y hasta 'n' distancia a la matriz]
   M-->O[Opción 2]
-  O-->P[Se seleccionan dos números al azar 'x','y' desde 0 hasta 7]
+  O-->P[Se seleccionan dos números al azar 'x','y' desde 0 hasta t-3]
   P-->R[Se selecciona la posicion x,y]
   R-->S[Se calcula la distancia vertical 'v' hasta el fin de la columna]
   S-->AJ[Se selecciona un número 'n' al azar entre 3 y 'v']
   AJ-->J
   M-->V[Opción 3]
-  V-->Q[Se seleccionan dos números al azar 'x','y' desde 0 hasta 7]
+  V-->Q[Se seleccionan dos números al azar 'x','y' desde 0 hasta t-3]
   Q-->AA[Se selecciona la posicion x,y]
   AA-->AB[Se calcula la distancia diagonal 'd' hasta el fin de la matriz]
   AB-->AK[Se selecciona un número 'n' al azar entre 3 y 'd']
