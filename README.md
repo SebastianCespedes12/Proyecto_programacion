@@ -30,11 +30,11 @@ flowchart TD
   G-->AM[Variable 'i' igual a 't'/2]
   AM-->AN{i>0?}
   AN-->|si|M{Se selecciona al azar un numero de 1 a 3}
-  AN-->|No|AO[Se recorre la matriz 'A']
+  AN-->|no|AO[Se recorre la matriz 'A']
   AO-->AP[Se añade una letra al azar a posiciones vacias]
   AP-->AR(Fin)
   M{Se selecciona al azar un numero de 1 a 3}-->N[Opción 1]
-  N-->H[Se seleccionan dos números al azar 'x','y desde 0 hasta t-3']
+  N-->H[Se seleccionan dos números al azar 'x','y' desde 0 hasta t-3']
   H-->L[Se selecciona la posicion x,y]
   L-->I[Se calcula la distancia horizontal 'h' hasta el fin de la fila]
   I-->F[Se selecciona un número 'n' al azar entre 3 y 'h']
