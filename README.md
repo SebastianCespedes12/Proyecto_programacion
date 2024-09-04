@@ -106,8 +106,9 @@ Tamaño_matriz :int = len(A) #Se guarda el tamaño de la matriz en la variable T
 Cantidad_de_palabras :int = Tamaño_matriz // 2  #Se seleccionan la cantidad de palabras que se van a añadir a la matriz
 ```
 ### Se añaden las palabras a la matriz
-Se añaden palabras horizontalmente.
 ```python
+#Se añaden palabras horizontalmente.
+
 Palabras_dentro = []
 while Cantidad_de_palabras > 0: #Mientras la cantidad de palabras sea mayor a 0
   Opciones = random.randint(1,3)  #Se selecciona una opcion aleatoria
