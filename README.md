@@ -129,7 +129,7 @@ while Cantidad_de_palabras > 0: #Mientras la cantidad de palabras sea mayor a 0
         an.añadir_palabra_horz(A,Palabra_seleccionada,coordenada_x,coordenada_y) #Se añade la palabra a la matriz usando como parametros la matriz, la palabra, la fila y la columna  
         Cantidad_de_palabras-=1 #Se resta 1 a la cantidad de palabras que se van a añadir a la matriz
 
-#Se añaden palabras vericalmente.
+#Se añaden palabras verticalmente.
 
   elif Opciones == 2: #Si la opcion es 2, la palabra se añade verticalmente
     coordenada_x = random.randint(0,Tamaño_matriz-3) #Se selecciona una coordenada x aleatoria
