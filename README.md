@@ -1,6 +1,16 @@
-# Projecto_programacion
+# Proyecto Programación
+## **Infinity Bit Team (∞BT)**
+* Juan Diego Cárdenas Olarte
+* Sebastián Céspedes Rico
+* Alejandra Landines Sanabria
 
+[![logo.jpg](https://i.postimg.cc/pdcVKPsT/logo.jpg)](https://postimg.cc/JyJWLCVV)
+
+-------------
 ## Definición de alternativa
+Optamos por la alternativa número 1, que consiste en crear una sopa de letras. Elegimos esta opción porque consideramos que programar este juego representa un reto para nosotros, que nos permite evaluar nuestro aprendizaje en la asignatura de Programación de Computadores, ya que para realizarlo es necesario hacer uso de los conceptos aprendidos; operaciones, condicionales, funciones, bucles, listas, matrices, strings y tuplas. 
+
+El algoritmo primero solicita al usuario que seleccione un nivel de dificultad, y en función de esta elección, se genera una matriz de diferente tamaño. Luego, se añaden palabras seleccionadas aleatoriamente de una lista a la matriz, letra por letra, y en distintas direcciones: horizontal, vertical y diagonal. Una vez ubicadas las palabras correspondientes al nivel de dificultad, se completan las posiciones vacías de la matriz con letras aleatorias. La interacción con el usuario se realiza mediante la consola, donde el usuario debe escribir la palabra que encuentra, y, esta se subraya automáticamente en la matriz. Además, planeamos agregar un sistema de puntuación y tiempo al juego.
 
 ## Diagrama preliminar
 ```mermaid
