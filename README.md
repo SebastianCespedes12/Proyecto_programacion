@@ -82,7 +82,7 @@ def verf_vacios_ver(A:list,x:int,y:int,d:int)->bool:
       break
   return Vacios 
 ```
-La quinta y sexta función añaden una cadena, caracter por caracter, a un rango dentro de una fila o columna respectivamente.
+La quinta y sexta función añaden una cadena, caracter por caracter, a un rango dentro de una fila o columna, respectivamente.
 ```python
 def añadir_palabra_horz(A:list,s:str,fila:int,columna:int)->list: #Se añaden como parametros la matriz, la palabra, la fila y la columna
     i = fila #Se asigna a i el valor de la fila, ya que la fila no cambia
