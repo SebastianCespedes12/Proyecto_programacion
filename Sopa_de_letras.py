@@ -65,8 +65,6 @@ def palabra_horizontal(A:list,tamaño_mtr:int,palabras:int,filtradas:list,dentro
   Vacio = verf_vacios_hor(A,coordenada_x,coordenada_y,N_letras) #Se verifica si hay espacio para añadir la palabra
     
   if Vacio == False: #Si hay espacio:
-    Palabra_seleccionada = ""  #Se crea una cadena vacia para guardar la palabra seleccionada
-    
     Palabra_seleccionada = random.choice(filtradas) #Se selecciona una palabra aleatoria
     if len(Palabra_seleccionada) == N_letras:  #Si la longitud de la palabra seleccionada es igual a un numero aleatorio N_letras
       dentro.append(Palabra_seleccionada) #Se añade la palabra a la lista de palabras dentro
@@ -83,7 +81,6 @@ def palabra_vertical(A:list,tamaño_mtr:int,palabras:int,filtradas:list,dentro:l
   N_letras= random.randint(3,distancia_y) #Se selecciona un numero aleatorio de letras entre 3 y la distancia en y
   Vacio = verf_vacios_ver(A,coordenada_x,coordenada_y,N_letras) #Se verifica si hay espacio para añadir la palabra
   if Vacio == False: #Si hay espacio:
-    Palabra_seleccionada = "" #Se crea una cadena vacia para guardar la palabra seleccionada
     Palabra_seleccionada = random.choice(filtradas) #Se selecciona una palabra aleatoria
     if len(Palabra_seleccionada) == N_letras: #Si la longitud de la palabra seleccionada es igual a un numero aleatorio N_letras
       dentro.append(Palabra_seleccionada) #Se añade la palabra a la lista de palabras dentro
@@ -96,14 +93,13 @@ def palabra_diagonal(A:list,tamaño_mtr:int,palabras:int,filtradas:list,dentro:l
   coordenada_x = random.randint(0,tamaño_mtr-3) #Se selecciona una coordenada x aleatoria
   coordenada_y = random.randint(0,tamaño_mtr-3) #Se selecciona una coordenada y aleatoria
   
-  distancia_x = tamaño_mtr - coordenada_y
-  distancia_y = tamaño_mtr - coordenada_x
-  distancia_diag =  min(distancia_x,distancia_y) #Se calcula la distancia en y hasta el final de la fila o columna
+  distancia_x = tamaño_mtr - coordenada_y #Se calcula la distancia en x hasta el final de la fila
+  distancia_y = tamaño_mtr - coordenada_x #Se calcula la distancia en y hasta el final de la columna
+  distancia_diag =  min(distancia_x, distancia_y) #Se selecciona la distancia mas corta entre x y y
   N_letras= random.randint(3,distancia_diag) #Se selecciona un numero aleatorio de letras entre 3 y la distancia diagonal
   
   Vacio = verf_vacios_diag(A,coordenada_x,coordenada_y,N_letras) #Se verifica si hay espacio para añadir la palabra
   if Vacio == False: #Si hay espacio:
-    Palabra_seleccionada = "" #Se crea una cadena vacia para guardar la palabra seleccionada
     Palabra_seleccionada = random.choice(filtradas) #Se selecciona una palabra aleatoria
     if len(Palabra_seleccionada) == N_letras: #Si la longitud de la palabra seleccionada es igual a un numero aleatorio N_letras
       dentro.append(Palabra_seleccionada) #Se añade la palabra a la lista de palabras dentro
@@ -164,7 +160,7 @@ if __name__ == "__main__":
     elif Opciones == 2: #Si la opcion es 2, la palabra se añade verticalmente
       (A,Cantidad_de_palabras, Palabras_filtradas, Palabras_dentro) = palabra_vertical(A,Tamaño_matriz,Cantidad_de_palabras,Palabras_filtradas,Palabras_dentro) 
     
-    else:
+    else: #Si la opcion es 3, la palabra se añade diagonalmente
       (A,Cantidad_de_palabras, Palabras_filtradas, Palabras_dentro) = palabra_diagonal(A,Tamaño_matriz,Cantidad_de_palabras,Palabras_filtradas,Palabras_dentro)
 
   #Se remplazan letras aleatorias por los espacios vacios
