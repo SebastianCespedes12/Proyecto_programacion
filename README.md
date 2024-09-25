@@ -58,7 +58,7 @@ flowchart TD
   AQ-->AN 
 ```
 
-## Solución preliminar
+## Funciones de funcionalidad
 Primero, se crearon 11 funciones principales antes de realizar un codigo general. La primera función consiste en crear una matriz con cualquier tamaño.
 ```python
 def crear_matriz(n: int) -> list:
@@ -189,7 +189,7 @@ def palabra_diagonal(A:list,tamaño_mtr:int,palabras:int,filtradas:dict,dentro:l
       palabras-=1 #Se resta 1 a la cantidad de palabras que se van a añadir a la matriz
   return A, palabras, filtradas, dentro
 ```
-Después se hicieron todas las funciones relacionadas con la interfaz.
+### Funciones de interfaz
 Primero, la función crea una ventana con tres botones para seleccionar la dificultad, retorna el tamaño de matriz escogido.
 ```python
 def menu_principal():
@@ -220,7 +220,7 @@ def modos_de_juego():
   # Variable to store the user's choice
   eleccion_usuario = [] #Se crea una lista vacia para almacenar la eleccion del usuario
 
-  etiqueta = tkinter.Label(ventana_modos, text="Desea añadir palabras o jugar con las palabras predeterminadas?", font=("Arial", 20))
+  etiqueta = tkinter.Label(ventana_modos, text="Desea añadir palabras \n o jugar con las palabras \n predeterminadas?", font=("Arial", 20))
   etiqueta.pack()
   
   def en_añadir():  
@@ -232,7 +232,7 @@ def modos_de_juego():
     ventana_modos.destroy() #Se cierra la ventana
    
   boton_añadir = tkinter.Button(ventana_modos, text="1. Añadir palabras", command=en_añadir) #Se crea un boton y se le asigna la funcion en_añadir
-  boton_añadir.pack(pady=30)
+  boton_añadir.pack(pady=30 )
 
   boton_predeterminado = tkinter.Button(ventana_modos, text="2. Palabras predeterminadas", command=en_predeterminado) #Se crea un boton y se le asigna la funcion en_predeterminado
   boton_predeterminado.pack(pady=30)
@@ -273,9 +273,8 @@ def añadir_palabras(Tamaño_matriz):
   return palabras # Se retorna la lista de palabras
 ```
 
-
 Después se añadieron todas las funciones a un codigo principal.
-### El usuario selecciona nivel de dificultad 
+### Se declaran las variables
 ```python
 if __name__ == "__main__":
   #Usuario selecciona nivel de dificultad
@@ -298,71 +297,66 @@ if __name__ == "__main__":
     tiempo_inicial = 360
   elif Tamaño_matriz ==10:
     tiempo_inicial = 180
-  
+
+  #Se crea un diccionario vacio para guardar las posiciones de las palabras
   posiciones = {}
   
   #Se crea una lista vacia para guardar las palabras que se añaden a la matriz final
   Palabras_dentro = []
 ```
-### Se añaden las palabras a la matriz
+### Se selecciona el modo de juego
+Si el usuario selecciona la opcion de jugar con palabras predefinidas
 ```python
-#Se añaden palabras horizontalmente.
+  if modos_de_juego() == False: # Si el usuario selecciona la opcion de jugar con palabras predefinidas
+    #Se crea un diccionario con las palabras filtradas
+    Palabras_filtradas :dict = filtrar(Todas_las_palabras)
+    #Se añaden las palabras a la matriz
+    while Cantidad_de_palabras > 0: #Mientras la cantidad de palabras sea mayor a 0
+      Opciones = random.randint(1,3)  #Se selecciona una opcion aleatoria
+      if Opciones == 1: #Si la opcion es 1, la palabra se añade horizontalmente
+        #Se asignan los valores de la funcion palabra_horizontal a las variables A, Cantidad_de_palabras, Palabras_filtradas y Palabras_dentro
+        (A,Cantidad_de_palabras, Palabras_filtradas, Palabras_dentro) = palabra_horizontal(A,Tamaño_matriz,Cantidad_de_palabras,Palabras_filtradas,Palabras_dentro) 
 
-Palabras_dentro = []
-while Cantidad_de_palabras > 0: #Mientras la cantidad de palabras sea mayor a 0
-  Opciones = random.randint(1,3)  #Se selecciona una opcion aleatoria
-  if Opciones == 1: #Si la opcion es 1, la palabra se añade horizontalmente
-    coordenada_x = random.randint(0,Tamaño_matriz-3) #Se selecciona una coordenada x aleatoria
-    coordenada_y = random.randint(0,Tamaño_matriz-3) #Se selecciona una coordenada y aleatoria
+      elif Opciones == 2: #Si la opcion es 2, la palabra se añade verticalmente
+        #Se asignan los valores de la funcion palabra_vertical a las variables A, Cantidad_de_palabras, Palabras_filtradas y Palabras_dentro
+        (A,Cantidad_de_palabras, Palabras_filtradas, Palabras_dentro) = palabra_vertical(A,Tamaño_matriz,Cantidad_de_palabras,Palabras_filtradas,Palabras_dentro) 
 
-    distancia_x = Tamaño_matriz - coordenada_y  #Se calcula la distancia en x hasta el final de la fila
-    N_letras = random.randint(3,distancia_x) #Se selecciona un numero aleatorio de letras entre 3 y la distancia en x
-    Vacio = verf.verf_vacios_hor(A,coordenada_x,coordenada_y,N_letras) #Se verifica si hay espacio para añadir la palabra
-    
-    if Vacio == False: #Si hay espacio:
-      Palabra_seleccionada = ""  #Se crea una cadena vacia para guardar la palabra seleccionada
-      Palabra_seleccionada = random.choice(Palabras_filtradas) #Se selecciona una palabra aleatoria
-      if len(Palabra_seleccionada) == N_letras:  #Si la longitud de la palabra seleccionada es igual a un numero aleatorio N_letras
-        Palabras_dentro.append(Palabra_seleccionada) #Se añade la palabra a la lista de palabras dentro
-        Palabras_filtradas.remove(Palabra_seleccionada) #Se remueve la palabra de la lista de palabras filtradas
-        an.añadir_palabra_horz(A,Palabra_seleccionada,coordenada_x,coordenada_y) #Se añade la palabra a la matriz usando como parametros la matriz, la palabra, la fila y la columna  
-        Cantidad_de_palabras-=1 #Se resta 1 a la cantidad de palabras que se van a añadir a la matriz
-
-#Se añaden palabras verticalmente.
-
-  elif Opciones == 2: #Si la opcion es 2, la palabra se añade verticalmente
-    coordenada_x = random.randint(0,Tamaño_matriz-3) #Se selecciona una coordenada x aleatoria
-    coordenada_y = random.randint(0,Tamaño_matriz-3) #Se selecciona una coordenada y aleatoria
-
-    distancia_y= Tamaño_matriz-coordenada_x #Se calcula la distancia en y hasta el final de la columna
-    N_letras= random.randint(3,distancia_y) #Se selecciona un numero aleatorio de letras entre 3 y la distancia en y
-    Vacio = verf.verf_vacios_ver(A,coordenada_x,coordenada_y,N_letras) #Se verifica si hay espacio para añadir la palabra
-    if Vacio == False: #Si hay espacio:
-      Palabra_seleccionada = "" #Se crea una cadena vacia para guardar la palabra seleccionada
-      Palabra_seleccionada = random.choice(Palabras_filtradas) #Se selecciona una palabra aleatoria
-      if len(Palabra_seleccionada) == N_letras: #Si la longitud de la palabra seleccionada es igual a un numero aleatorio N_letras
-        Palabras_dentro.append(Palabra_seleccionada) #Se añade la palabra a la lista de palabras dentro
-        Palabras_filtradas.remove(Palabra_seleccionada) #Se remueve la palabra de la lista de palabras filtradas
-        an.añadir_palabra_ver(A,Palabra_seleccionada,coordenada_x,coordenada_y) #Se añade la palabra a la matriz usando como parametros la matriz, la palabra, la fila y la columna 
-        Cantidad_de_palabras-=1 #Se resta 1 a la cantidad de palabras que se van a añadir a la matriz
+      else: #Se añade una palabra digonalmente
+        #Se asignan los valores de la funcion palabra_diagonal a las variables A, Cantidad_de_palabras, Palabras_filtradas y Palabras_dentro
+        (A,Cantidad_de_palabras, Palabras_filtradas, Palabras_dentro) = palabra_diagonal(A,Tamaño_matriz,Cantidad_de_palabras,Palabras_filtradas,Palabras_dentro) 
+    #Se remplazan letras aleatorias por los espacios vacios
+    for i in range(len(A)): #Se recorren las filas
+      for j in range(len(A[i])): #Se recorren las columnas
+        if A[i][j] == "" : #Si la matriz en la fila i y la columna j es igual a una cadena vacia
+          A[i][j] = chr(random.randint(65,90)) #Se selecciona una letra aleatoria de el codigo ASCII de las mayusculas y se añade a la matriz
+    crear_ventana(tiempo_inicial, Palabras_dentro, A,posiciones,Dificultad)
 ```
-### Se remplazan letras aleatorias por los espacios vacios y se imprime la matriz
+Si el usuario selecciona la opcion de jugar con palabras añadidas por el
 ```python
-for i in range(len(A)): #Se recorren las filas
-  for j in range(len(A[i])): #Se recorren las columnas
-    if A[i][j] == "": #Si la matriz en la fila i y la columna j es igual a una cadena vacia
-      A[i][j] = random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ") #Se selecciona una letra aleatoria y se añade a la matriz
-#Se imprime la matriz
-for i in range(len(A)):#Se recorren las filas
-  print(A[i]) #Se imprime cada fila
+  else: #Si el usuario selecciona la opcion de jugar con palabras añadidas por el
+    Todas_las_palabras = añadir_palabras(Tamaño_matriz)
+    #Se crea un diccionario con las palabras filtradas
+    Palabras_filtradas :dict = filtrar(Todas_las_palabras)
+    #Se añaden las palabras a la matriz
+    while Cantidad_de_palabras > 0: #Mientras la cantidad de palabras sea mayor a 0
+      Opciones = random.randint(1,3)  #Se selecciona una opcion aleatoria
+      if Opciones == 1: #Si la opcion es 1, la palabra se añade horizontalmente
+        #Se asignan los valores de la funcion palabra_horizontal a las variables A, Cantidad_de_palabras, Palabras_filtradas y Palabras_dentro
+        (A,Cantidad_de_palabras, Palabras_filtradas, Palabras_dentro) = palabra_horizontal(A,Tamaño_matriz,Cantidad_de_palabras,Palabras_filtradas,Palabras_dentro) 
+
+      elif Opciones == 2: #Si la opcion es 2, la palabra se añade verticalmente
+        #Se asignan los valores de la funcion palabra_vertical a las variables A, Cantidad_de_palabras, Palabras_filtradas y Palabras_dentro
+        (A,Cantidad_de_palabras, Palabras_filtradas, Palabras_dentro) = palabra_vertical(A,Tamaño_matriz,Cantidad_de_palabras,Palabras_filtradas,Palabras_dentro) 
+        do = 1
+
+      else: #Se añade una palabra digonalmente
+        #Se asignan los valores de la funcion palabra_diagonal a las variables A, Cantidad_de_palabras, Palabras_filtradas y Palabras_dentro
+        (A,Cantidad_de_palabras, Palabras_filtradas, Palabras_dentro) = palabra_diagonal(A,Tamaño_matriz,Cantidad_de_palabras,Palabras_filtradas,Palabras_dentro) 
+    #Se remplazan letras aleatorias por los espacios vacios
+    for i in range(len(A)): #Se recorren las filas
+      for j in range(len(A[i])): #Se recorren las columnas
+        if A[i][j] == "" : #Si la matriz en la fila i y la columna j es igual a una cadena vacia
+          A[i][j] = chr(random.randint(65,90)) #Se selecciona una letra aleatoria de el codigo ASCII de las mayusculas y se añade a la matriz
+    crear_ventana(tiempo_inicial, Palabras_dentro, A,posiciones,Dificultad)
 ```
-### El usuario ingresa las palabras que encuentre 
-```python
-while len(Palabras_dentro) > 0: #Mientras la longitud de la lista de palabras dentro de la matriz sea mayor a 0
-    Intento = input("Ingrese la palabra que encuentre: ") #Se le pide al usuario que ingrese una palabra
-    if Intento.upper() in Palabras_dentro: #Si la palabra ingresada por el usuario esta en la lista de palabras dentro
-      print("Palabra correcta") #Se imprime que la palabra es correcta
-      Palabras_dentro.remove(Intento.upper()) #Se remueve la palabra de la lista de palabras dentro
-if len(Palabras_dentro) == 0: #Si la longitud de la lista de palabras dentro es igual a 0
-  print("Se han encontrado todas las palabras") #Se imprime que se han encontrado todas las palabras
-```
+
