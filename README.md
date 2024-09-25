@@ -88,7 +88,7 @@ flowchart TD
     CN-->|no|CO[Mensanje: '¡Felicidades, ganaste!']-->CP[Se cierra la ventana luego de 2 segundos]-->CQ(fin)
 ```
 
-## Funciones de funcionalidad
+## Funciones desarrollo de la matriz
 Primero, se crearon 11 funciones principales antes de realizar un codigo general. La primera función consiste en crear una matriz con cualquier tamaño.
 ```python
 def crear_matriz(n: int) -> list:
@@ -302,7 +302,81 @@ def añadir_palabras(Tamaño_matriz):
   ventana_añadir.mainloop()
   return palabras # Se retorna la lista de palabras
 ```
+La función crea un temporizador desde cierto tiempo hasta 0. Cuando este tiempo termina saltara un mensaje de "Se acabo el tiempo" y la ventana principal será cerrada.
+```python
+def cuenta_atras(texto, tiempo, ventana):
+  while tiempo >= 0: #Mientras el tiempo sea mayor o igual a 0
+    minutos = tiempo // 60 #Se divide el tiempo entre 60 y se asigna a minutos
+    segundos = tiempo % 60 #Se saca el residuo de la division del tiempo entre 60 y se asigna a segundos
+    texto.config(text=f"{minutos:02}:{segundos:02}") #Se asigna al texto el valor de minutos y segundos en formato de 2 digitos
+    texto.update() #Se actualiza el texto
+    tiempo -= 1 #Se resta 1 al tiempo
+    texto.after(1000)  #Se espera 1 segundo
+  messagebox.showinfo("Perdiste", "Se acabo el tiempo") #Se muestra un mensaje de que se acabo el tiempo si el tiempo llega a 0
+  ventana.after(2000, ventana.destroy) #Se cierra la ventana despues de 2 segundos
+```
+La función permite a traves de la palabra escrita por el usuario comprobar si esta se encuentra en la sopa de letras y cuando finalizen las palabras cerrara la ventana principal.
+```python
+def verificar_palabra(consola,dentro,puntaje_label, puntos, ventana, matriz_label, posiciones):
+  palabra = consola.get().upper() #Se obtiene la palabra ingresada por el usuario y se convierte a mayusculas
+  if palabra in dentro: #Si la palabra esta en la lista de palabras dentro
+    dentro.remove(palabra)	#Se remueve la palabra de la lista de palabras dentro
+    messagebox.showinfo("Correcto", "Palabra correcta") #Se muestra un mensaje de que la palabra es correcta
+    puntos[0] += puntaje(len(palabra)) #Se suma el puntaje de acuerdo a la longitud de la palabra al puntaje total
+    for pos in posiciones[palabra]: #Se recorre la lista de posiciones de la palabra
+        matriz_label[pos].config(bg="light blue") # Cambia de color las letras encontradas
+  else: #Si la palabra no esta en la lista de palabras dentro
+    messagebox.showinfo("Error", "Palabra incorrecta")  #Se muestra un mensaje de que la palabra es incorrecta
+  consola.delete(0, tkinter.END) #Se borra la palabra ingresada por el usuario
+  puntaje_label.config(text=f"Puntaje: {puntos[0]}", font=("Arial", 30)) #Se actualiza el puntaje
+  if len(dentro)==0: #Si la lista de palabras dentro esta vacia
+    messagebox.showinfo("Felicidades", "Encontraste todas las palabras") #Se muestra un mensaje de que se encontraron todas las palabras
+    ventana.after(2000, ventana.destroy) #Se cierra la ventana despues de 2 segundos
+```
+Esta función calcula los puntajes obtenidos según el largo de la palabra adivinada.
+```python
+def puntaje(longitud): 
+  if longitud >= 20: #Si la longitud de la palabra es mayor o igual a 20
+   return 60 #Se retorna 60
+  elif longitud >= 15: #Si la longitud de la palabra es mayor o igual a 15
+    return 50 #Se retorna 50
+  elif longitud >= 10:
+    return 40
+  elif longitud >= 4:
+   return 30
+  else:
+    return 20
+```
+Por ultimo esta funcion haria uso de todas las anteriores para hacer una ventana principal que cuente con temporizador, sistema de puntaje, la matriz en cuestion (sopa de letras), sistema para adivinar palabras y boton de salida.
+```python
+def crear_ventana(tiempo, dentro, matriz, posiciones, opcion):
+  puntos = [0] #Se crea una lista con un entero 0
+  ventana = tkinter.Tk() #Se crea una ventana
+  ventana.title("Sopa de letras")
+  matriz_label = {} #Se crea un diccionario vacio
+  
 
+  mostrar_matriz(matriz, ventana, matriz_label,opcion) #Se muestra la matriz en la ventana
+
+  texto = tkinter.Label(ventana, text="", font=("Arial", 48)) #Se crea un texto vacio
+  texto.grid(row=len(matriz) + 1, columnspan=len(matriz)) #Se pone el texto en la ventana
+
+  consola = tkinter.Entry(ventana, font=("Arial", 25)) #Se crea una entrada para que el usuario ingrese la palabra
+  consola.grid(row=len(matriz) + 2, columnspan=len(matriz)) #Se pone la entrada en la ventana
+
+  etiqueta_puntaje = tkinter.Label(ventana, text="Puntaje: 0", font=("Arial", 30)) #Se crea una etiqueta con el puntaje
+  etiqueta_puntaje.grid(row=len(matriz) + 3, columnspan=len(matriz)) #Se pone el puntaje en la ventana
+
+  boton_consola = tkinter.Button(ventana, text="SUBIR", command=lambda: verificar_palabra(consola, dentro, etiqueta_puntaje, puntos, ventana, matriz_label, posiciones)) #Se crea un boton y se le asigna la funcion verificar_palabra
+  boton_consola.grid(row=len(matriz) + 4, columnspan=len(matriz)) #Se pone el boton en la ventana
+
+  boton_cerrar = tkinter.Button(ventana, text="SALIR", command=ventana.destroy) #Se crea un boton y se le asigna la funcion de cerrar la ventana
+  boton_cerrar.grid(row=len(matriz) + 5, columnspan=len(matriz)) #Se pone el boton en la ventana
+
+  cuenta_atras(texto, tiempo, ventana) #Se llama a la funcion cuenta_atras con los parametros texto, tiempo y ventana
+  ventana.mainloop() 
+
+```
 Después se añadieron todas las funciones a un codigo principal.
 ### Se declaran las variables
 ```python
@@ -389,4 +463,11 @@ Si el usuario selecciona la opcion de jugar con palabras añadidas por el
           A[i][j] = chr(random.randint(65,90)) #Se selecciona una letra aleatoria de el codigo ASCII de las mayusculas y se añade a la matriz
     crear_ventana(tiempo_inicial, Palabras_dentro, A,posiciones,Dificultad)
 ```
-
+### Instalación
+Para poder correr el codigo proporcionamos se deben cumplir ciertos requisitos:
+#### Python instalado.
+>Debes tener instalado Python en tu computadora. Se recomienda una versión 3.x (como Python 3.8 o superior).
+#### Bibliotecas estándar de Python
+> Este código utiliza la librería tkinter para crear interfaces gráficas (ventanas, botones, etiquetas, etc.). Tkinter viene preinstalado con la mayoría de las instalaciones de Python, pero en algunos sistemas (especialmente en Linux) puede ser necesario instalarla por separado.
+#### Entorno de desarrollo
+>Si deseas escribir y ejecutar el código de manera más cómoda, un entorno de desarrollo integrado (IDE) es recomendable. Nosotros recomendamos vscode (Visual Studio Code)
