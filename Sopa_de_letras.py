@@ -40,7 +40,7 @@ def modos_de_juego():
     ventana_modos.destroy() #Se cierra la ventana
    
   boton_añadir = tkinter.Button(ventana_modos, text="1. Añadir palabras", command=en_añadir) #Se crea un boton y se le asigna la funcion en_añadir
-  boton_añadir.pack(pady=30)
+  boton_añadir.pack(pady=30 )
 
   boton_predeterminado = tkinter.Button(ventana_modos, text="2. Palabras predeterminadas", command=en_predeterminado) #Se crea un boton y se le asigna la funcion en_predeterminado
   boton_predeterminado.pack(pady=30)
@@ -2339,6 +2339,7 @@ if __name__ == "__main__":
     Dificultad = 2  
   else:
     Dificultad = 30
+ 
   A = crear_matriz(Tamaño_matriz) #Se crea la matriz dependiendo de la dificultad seleccionada por el usuario
   
   #Se seleccionan la cantidad de palabras que se van a añadir a la matriz
@@ -2346,11 +2347,12 @@ if __name__ == "__main__":
 
   if Tamaño_matriz == 30:
     tiempo_inicial = 480
-  elif Tamaño_matriz ==15:
+  elif Tamaño_matriz == 15:
     tiempo_inicial = 360
-  elif Tamaño_matriz ==10:
+  elif Tamaño_matriz == 10:
     tiempo_inicial = 180
   
+  #Se crea un diccionario vacio para guardar las posiciones de las palabras
   posiciones = {}
   
   #Se crea una lista vacia para guardar las palabras que se añaden a la matriz final
@@ -2381,7 +2383,7 @@ if __name__ == "__main__":
           A[i][j] = chr(random.randint(65,90)) #Se selecciona una letra aleatoria de el codigo ASCII de las mayusculas y se añade a la matriz
     crear_ventana(tiempo_inicial, Palabras_dentro, A,posiciones,Dificultad)
   
-  else: #Si el usuario selecciona la opcion de jugar con palabras añadidas por elE
+  else: #Si el usuario selecciona la opcion de jugar con palabras añadidas por el
     Todas_las_palabras = añadir_palabras(Tamaño_matriz)
     #Se crea un diccionario con las palabras filtradas
     Palabras_filtradas :dict = filtrar(Todas_las_palabras)
