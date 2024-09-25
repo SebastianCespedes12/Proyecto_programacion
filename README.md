@@ -277,11 +277,32 @@ def añadir_palabras(Tamaño_matriz):
 Después se añadieron todas las funciones a un codigo principal.
 ### El usuario selecciona nivel de dificultad 
 ```python
-print("Seleccione nivel de dificultad:\n 1.Facil 10x10 \n 2.Medio 20x20 \n 3.Dificil 30x30")  #Se le pide al usuario que seleccione el nivel de dificultad
-Dificultad: int =int(input("Escriba 1, 2 , 3: ")) #Se guarda la respuesta del usuario en la variable Dificultad
-A = cr.crear_matriz(Dificultad * 10) #Se crea la matriz dependiendo de la dificultad seleccionada por el usuario
-Tamaño_matriz :int = len(A) #Se guarda el tamaño de la matriz en la variable Tamaño_matriz #Se crea una lista con las palabras filtradas
-Cantidad_de_palabras :int = Tamaño_matriz // 2  #Se seleccionan la cantidad de palabras que se van a añadir a la matriz
+if __name__ == "__main__":
+  #Usuario selecciona nivel de dificultad
+  Tamaño_matriz= menu_principal() 
+  if Tamaño_matriz == 10:
+    Dificultad = 1
+  elif Tamaño_matriz == 15:
+    Dificultad = 2  
+  else:
+    Dificultad = 30
+ 
+  A = crear_matriz(Tamaño_matriz) #Se crea la matriz dependiendo de la dificultad seleccionada por el usuario
+  
+  #Se seleccionan la cantidad de palabras que se van a añadir a la matriz
+  Cantidad_de_palabras :int = Tamaño_matriz // 2
+
+  if Tamaño_matriz == 30:
+    tiempo_inicial = 480
+  elif Tamaño_matriz ==15:
+    tiempo_inicial = 360
+  elif Tamaño_matriz ==10:
+    tiempo_inicial = 180
+  
+  posiciones = {}
+  
+  #Se crea una lista vacia para guardar las palabras que se añaden a la matriz final
+  Palabras_dentro = []
 ```
 ### Se añaden las palabras a la matriz
 ```python
