@@ -2341,9 +2341,9 @@ if __name__ == "__main__":
 
   if Tamaño_matriz == 30:
     tiempo_inicial = 480
-  elif Tamaño_matriz == 15:
+  elif Tamaño_matriz ==15:
     tiempo_inicial = 360
-  elif Tamaño_matriz == 10:
+  elif Tamaño_matriz ==10:
     tiempo_inicial = 180
   
   posiciones = {}
