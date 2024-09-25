@@ -12,11 +12,11 @@ def menu_principal():
   etiqueta = tkinter.Label(ventana_menu, text="Seleccione dificultad", font=("Arial", 20)) #Se crea una etiqueta y se le asigna un texto y un tamaño de letra
   etiqueta.pack() #Se pone la etiqueta en la ventana
   boton_facil = tkinter.Button(ventana_menu, text="1. Facil 10x10 ", command=lambda: (ventana_menu.destroy(), nivel_dificultad(10))) #Se crea un boton y se le asigna la funcion nivel_dificultad con el parametro 10
-  boton_facil.pack(pady=10) #Se pone el boton en la ventana
+  boton_facil.pack(pady=20) #Se pone el boton en la ventana
   boton_medio = tkinter.Button(ventana_menu, text="2. Medio 15x15", command=lambda:(ventana_menu.destroy(), nivel_dificultad(15)))  
   boton_medio.pack(pady=20)
   boton_dificil = tkinter.Button(ventana_menu, text="3. Dificil 30x30", command=lambda: ((ventana_menu.destroy(), nivel_dificultad(30))))
-  boton_dificil.pack(pady=30)
+  boton_dificil.pack(pady=20)
   ventana_menu.mainloop() 
   return dificultad #Se retorna la variable global dificultad
 
@@ -40,10 +40,10 @@ def modos_de_juego():
     ventana_modos.destroy() #Se cierra la ventana
    
   boton_añadir = tkinter.Button(ventana_modos, text="1. Añadir palabras", command=en_añadir) #Se crea un boton y se le asigna la funcion en_añadir
-  boton_añadir.pack()
+  boton_añadir.pack(pady=30)
 
   boton_predeterminado = tkinter.Button(ventana_modos, text="2. Palabras predeterminadas", command=en_predeterminado) #Se crea un boton y se le asigna la funcion en_predeterminado
-  boton_predeterminado.pack()
+  boton_predeterminado.pack(pady=30)
   
   ventana_modos.mainloop()
   if "añadir" in eleccion_usuario: #Si la palabra "añadir" esta en la lista eleccion_usuario
@@ -2339,11 +2339,11 @@ if __name__ == "__main__":
   #Se seleccionan la cantidad de palabras que se van a añadir a la matriz
   Cantidad_de_palabras :int = Tamaño_matriz // 2
 
-  if Dificultad == 30:
+  if Tamaño_matriz == 30:
     tiempo_inicial = 480
-  elif Dificultad==20:
+  elif Tamaño_matriz ==20:
     tiempo_inicial = 360
-  else:
+  elif Tamaño_matriz ==10:
     tiempo_inicial = 180
   
   posiciones = {}
@@ -2365,7 +2365,6 @@ if __name__ == "__main__":
       elif Opciones == 2: #Si la opcion es 2, la palabra se añade verticalmente
         #Se asignan los valores de la funcion palabra_vertical a las variables A, Cantidad_de_palabras, Palabras_filtradas y Palabras_dentro
         (A,Cantidad_de_palabras, Palabras_filtradas, Palabras_dentro) = palabra_vertical(A,Tamaño_matriz,Cantidad_de_palabras,Palabras_filtradas,Palabras_dentro) 
-        do = 1
 
       else: #Se añade una palabra digonalmente
         #Se asignan los valores de la funcion palabra_diagonal a las variables A, Cantidad_de_palabras, Palabras_filtradas y Palabras_dentro
@@ -2374,10 +2373,10 @@ if __name__ == "__main__":
     for i in range(len(A)): #Se recorren las filas
       for j in range(len(A[i])): #Se recorren las columnas
         if A[i][j] == "" : #Si la matriz en la fila i y la columna j es igual a una cadena vacia
-          A[i][j] = chr(random.randint(65,90)) #Se selecciona una letra aleatoria de el codigo ASCII de las mayusculas y se añade a la matriz
+          A[i][j] = " " #Se selecciona una letra aleatoria de el codigo ASCII de las mayusculas y se añade a la matriz
     crear_ventana(tiempo_inicial, Palabras_dentro, A,posiciones,Dificultad)
   
-  else: #Si el usuario selecciona la opcion de jugar con palabras añadidas por el
+  else: #Si el usuario selecciona la opcion de jugar con palabras añadidas por elE
     Todas_las_palabras = añadir_palabras(Tamaño_matriz)
     #Se crea un diccionario con las palabras filtradas
     Palabras_filtradas :dict = filtrar(Todas_las_palabras)
