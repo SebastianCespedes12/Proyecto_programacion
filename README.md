@@ -464,7 +464,7 @@ Si el usuario selecciona la opcion de jugar con palabras añadidas por el
     crear_ventana(tiempo_inicial, Palabras_dentro, A,posiciones,Dificultad)
 ```
 ### Instalación
-Para poder correr el codigo proporcionamos se deben cumplir ciertos requisitos:
+Para ejecutar correctamente el código proporcionado en un entorno local, es fundamental asegurarse de que se tengan instalados ciertos paquetes y de que se cumplan algunos requisitos previos en el sistema. Estos son:
 #### Python instalado.
 >Debes tener instalado Python en tu computadora. Se recomienda una versión 3.x (como Python 3.8 o superior).
 #### Bibliotecas estándar de Python
