@@ -28,7 +28,7 @@ def modos_de_juego():
   # Variable to store the user's choice
   eleccion_usuario = [] #Se crea una lista vacia para almacenar la eleccion del usuario
 
-  etiqueta = tkinter.Label(ventana_modos, text="Desea añadir palabras o jugar con las palabras predeterminadas?", font=("Arial", 20))
+  etiqueta = tkinter.Label(ventana_modos, text="Desea añadir palabras \n o jugar con las palabras \n predeterminadas?", font=("Arial", 20))
   etiqueta.pack()
   
   def en_añadir():  
