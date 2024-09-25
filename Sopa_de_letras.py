@@ -2333,7 +2333,12 @@ if __name__ == "__main__":
   
   #Usuario selecciona nivel de dificultad 
   Tamaño_matriz= menu_principal() 
-  Dificultad = Tamaño_matriz//10
+  if Tamaño_matriz == 10:
+    Dificultad = 1
+  elif Tamaño_matriz == 15:
+    Dificultad = 2  
+  else:
+    Dificultad = 30
   A = crear_matriz(Tamaño_matriz) #Se crea la matriz dependiendo de la dificultad seleccionada por el usuario
   
   #Se seleccionan la cantidad de palabras que se van a añadir a la matriz
