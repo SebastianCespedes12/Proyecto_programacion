@@ -2373,7 +2373,7 @@ if __name__ == "__main__":
     for i in range(len(A)): #Se recorren las filas
       for j in range(len(A[i])): #Se recorren las columnas
         if A[i][j] == "" : #Si la matriz en la fila i y la columna j es igual a una cadena vacia
-          A[i][j] = " " #Se selecciona una letra aleatoria de el codigo ASCII de las mayusculas y se añade a la matriz
+          A[i][j] = chr(random.randint(65,90)) #Se selecciona una letra aleatoria de el codigo ASCII de las mayusculas y se añade a la matriz
     crear_ventana(tiempo_inicial, Palabras_dentro, A,posiciones,Dificultad)
   
   else: #Si el usuario selecciona la opcion de jugar con palabras añadidas por elE
