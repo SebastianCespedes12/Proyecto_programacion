@@ -59,27 +59,30 @@ flowchart TD
 ```
 
 ## Solución preliminar
-Primero, se crearon 6 funciones principales antes de realizar un codigo general. La primera función consiste en crear una matriz con cualquier tamaño.
+Primero, se crearon 8 funciones principales antes de realizar un codigo general. La primera función consiste en crear una matriz con cualquier tamaño.
 ```python
 def crear_matriz(n: int) -> list:
     # Crea una matriz n x n donde cada elemento es una cadena vacía
     return [["" for i in range(n)] for i in range(n)]
 ```
-La segunda función filtra y añade a una lista solo las palabras que caben en la matriz.
+La segunda función filtra y añade a un diccionario todas las palabras, la clave es la longitud de la palabra y el valor una lista con todas las palabras de esa longitud .
 ```python
-def filtrar_palabras(Todas:list,tamaño_mtr:int)->list: 
-  filtradas = []  #Se crea una lista vacia para guardar las palabras filtradas
-  for i in Todas: #Se recorre la lista de palabras
-    if len(i) <= tamaño_mtr: #Si la longitud de la palabra es menor o igual al tamaño de la matriz
-      filtradas.append(i) #Se añade la palabra a la lista filtradas
-  return filtradas 
+def filtrar(a: list)->dict:
+  A ={} #Se crea un diccionario vacio
+  for cadena in a: #Se recorre la lista de palabras
+    ctn = len(cadena) #Se asigna a ctn la longitud de la palabra
+    if ctn in A: #Si la longitud de la palabra esta en el diccionario
+       A[ctn].append(cadena.upper()) #Se añade la palabra a la lista de palabras de esa longitud
+    if ctn not in A: # Si la longitud de la palabra no esta en el diccionario
+      A[ctn] = [cadena.upper()] #Se añade la longitud de la palabra al diccionario y se añade la palabra a la lista de palabras de esa longitud
+  return A  
 ```
-La tercera y cuarta función verifican si hay algún objeto distinto de una cadena vacía en un rango dentro de una fila o columna. Esto para saber si se puede añadir una palabra.
+La tercera, cuarta y quinta función verifican si hay algún objeto distinto de una cadena vacía en un rango dentro de una fila o columna. Esto para saber si se puede añadir una palabra.
 ```python
 def verf_vacios_hor(A:list,x:int,y:int,d:int) ->bool: #Se añaden los parametros de la matriz, la fila, la columna y la longitud de la palabra
   Vacios = False  #Se asigna a Vacios el valor de False
   for i in range(y,y+d): #Se recorre la fila por la longitud de la palabra
-    if A[x][i] != "": #Si la matriz en la fila x y la columna i es diferente de vacio
+    if A[x][i] != "": #Si la matriz en la fila x y la columna i es diferente a una cadena vacia
       Vacios=True  #Se asigna a Vacios el valor de True y se rompe el ciclo
       break
   return Vacios
@@ -87,24 +90,50 @@ def verf_vacios_hor(A:list,x:int,y:int,d:int) ->bool: #Se añaden los parametros
 def verf_vacios_ver(A:list,x:int,y:int,d:int)->bool:
   Vacios = False #Se asigna a Vacios el valor de False
   for i in range(x,x+d): #Se recorre la columna por la longitud de la palabra
-    if A[i][y] != "": #Si la matriz en la fila i y la columna y es diferente de vacio
+    if A[i][y] != "": #Si la matriz en la fila i y la columna y es diferente a una cadena vacia
       Vacios=True  #Se asigna a Vacios el valor de True y se rompe el ciclo
       break
   return Vacios 
+
+def verf_vacios_diag(A:list,x:int,y:int,d:int)->bool:
+  Vacios = False #Se asigna a Vacios el valor de False
+  for i in range(x,x+d): #Se recorre la columna por la longitud de la palabra
+    for j in range(y,y+d): #Se recorre la fila por la longitud de la palabra
+      if i-j == x-y: #Si la resta de i-j es igual a la resta de x-y
+        if A[i][j] != "": #Si la matriz en la fila i y la columna j es diferente a una cadena vacia
+          Vacios=True #Se asigna a Vacios el valor de True y se rompe el ciclo
+          break
+  return Vacios
 ```
-La quinta y sexta función añaden una cadena, caracter por caracter, a un rango dentro de una fila o columna, respectivamente.
+La sexta,septima y octava función añaden una cadena, caracter por caracter, a un rango dentro de una fila o columna.
 ```python
 def añadir_palabra_horz(A:list,s:str,fila:int,columna:int)->list: #Se añaden como parametros la matriz, la palabra, la fila y la columna
     i = fila #Se asigna a i el valor de la fila, ya que la fila no cambia
+    pos = []
     for k in range(columna,columna + len(s)):  #Se recorre la palabra y la fila.
         A[i][k] = s[k-columna] #Se asigna a la matriz la letra de la palabra en la posicion k-columna
-    return A  
+        pos.append((i, k)) #Se añade la posicion a la lista de posiciones
+    posiciones[s] = pos
+    return A
 
 def añadir_palabra_ver(A:list,s:str,fila:int,columna:int)->list:
   i = columna #Se asigna a i el valor de la columna, ya que la columna no cambia
+  pos = []
   for k in range(fila,fila + len(s)):  #Se recorre la palabra y la columna.
     A[k][i] = s[k - fila] #Se asigna a la matriz la letra de la palabra en la posicion k-fila
+    pos.append((k, i)) #Se añade la posicion a la lista de posiciones
+  posiciones[s] = pos
   return A  
+
+def añadir_palabra_diag(A:list,s:str,fila:int,columna:int)->list:
+  pos = []
+  for i in range(fila,fila+len(s)): #Se recorre la palabra y la fila
+    for j in range(columna,columna+len(s)): #Se recorre la palabra y la columna
+      if i-j == fila-columna: #Si la resta de i-j es igual a la resta de fila-columna
+        A[i][j]=s.upper()[i-fila] #Se asigna a la matriz la letra de la palabra en la posicion i-fila
+        pos.append((i, j)) #Se añade la posicion a la lista de posiciones
+  posiciones[s] = pos
+  return A
 ```
 Después se añadieron todas las funciones a un codigo principal.
 ### El usuario selecciona nivel de dificultad 
