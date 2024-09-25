@@ -192,7 +192,6 @@ def palabra_diagonal(A:list,tamaño_mtr:int,palabras:int,filtradas:dict,dentro:l
 Después se hicieron todas las funciones relacionadas con la interfaz.
 Primero, la función crea una ventana con tres botones para seleccionar la dificultad, retorna el tamaño de matriz escogido.
 ```python
-
 def menu_principal():
   def nivel_dificultad(n): #Se declara la funcion nivel_dificultad con el parametro n
     global dificultad #Se declara la variable global dificultad
@@ -203,11 +202,11 @@ def menu_principal():
   etiqueta = tkinter.Label(ventana_menu, text="Seleccione dificultad", font=("Arial", 20)) #Se crea una etiqueta y se le asigna un texto y un tamaño de letra
   etiqueta.pack() #Se pone la etiqueta en la ventana
   boton_facil = tkinter.Button(ventana_menu, text="1. Facil 10x10 ", command=lambda: (ventana_menu.destroy(), nivel_dificultad(10))) #Se crea un boton y se le asigna la funcion nivel_dificultad con el parametro 10
-  boton_facil.pack()
+  boton_facil.pack(pady=20) #Se pone el boton en la ventana
   boton_medio = tkinter.Button(ventana_menu, text="2. Medio 15x15", command=lambda:(ventana_menu.destroy(), nivel_dificultad(15)))  
-  boton_medio.pack()
-  boton_dificil = tkinter.Button(ventana_menu, text="3. Dificil 20x20", command=lambda: ((ventana_menu.destroy(), nivel_dificultad(30))))
-  boton_dificil.pack()
+  boton_medio.pack(pady=20)
+  boton_dificil = tkinter.Button(ventana_menu, text="3. Dificil 30x30", command=lambda: ((ventana_menu.destroy(), nivel_dificultad(30))))
+  boton_dificil.pack(pady=20)
   ventana_menu.mainloop() 
   return dificultad #Se retorna la variable global dificultad
 ```
@@ -233,10 +232,10 @@ def modos_de_juego():
     ventana_modos.destroy() #Se cierra la ventana
    
   boton_añadir = tkinter.Button(ventana_modos, text="1. Añadir palabras", command=en_añadir) #Se crea un boton y se le asigna la funcion en_añadir
-  boton_añadir.pack()
+  boton_añadir.pack(pady=30)
 
   boton_predeterminado = tkinter.Button(ventana_modos, text="2. Palabras predeterminadas", command=en_predeterminado) #Se crea un boton y se le asigna la funcion en_predeterminado
-  boton_predeterminado.pack()
+  boton_predeterminado.pack(pady=30)
   
   ventana_modos.mainloop()
   if "añadir" in eleccion_usuario: #Si la palabra "añadir" esta en la lista eleccion_usuario
