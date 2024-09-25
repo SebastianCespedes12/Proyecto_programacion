@@ -12,50 +12,80 @@ Optamos por la alternativa número 1, que consiste en crear una sopa de letras. 
 
 El algoritmo primero solicita al usuario que seleccione un nivel de dificultad, y en función de esta elección, se genera una matriz de diferente tamaño. Luego, se añaden palabras seleccionadas aleatoriamente de una lista a la matriz, letra por letra, y en distintas direcciones: horizontal, vertical y diagonal. Una vez ubicadas las palabras correspondientes al nivel de dificultad, se completan las posiciones vacías de la matriz con letras aleatorias. La interacción con el usuario se realiza mediante la consola, donde el usuario debe escribir la palabra que encuentra, y, esta se subraya automáticamente en la matriz. Además, planeamos agregar un sistema de puntuación y tiempo al juego.
 
-## Diagrama preliminar
+## Diagrama de Flujo
 ```mermaid
 flowchart TD
-  A(inicio)-->B[Se crea arreglo 's' con todas las palabras]
-  B-->C{Se elige el tamaño de la matriz 'A'}
-  C-->Z[10x10]
-  C-->Y[20x20]
-  C-->X[30x30]
-  Z-->AH[variable 't' igual a la cantidad de filas de A]
-  AH-->AI[Se crea arreglo vacio 'b']
-  AI-->D[Recorre arreglo 's']
-  Y-->AH
-  X-->AH
-  D-->E[Fitra por tamaño de palabra menor o igual a 't' ]
-  E-->G[Se añaden las palabras al arreglo 'b'] 
-  G-->AM[Variable 'i' igual a 't'/2]
-  AM-->AN{i>0?}
-  AN-->|si|M{Se selecciona al azar un numero de 1 a 3}
-  AN-->|no|AO[Se recorre la matriz 'A']
-  AO-->AP[Se añade una letra al azar a posiciones vacias]
-  AP-->AR(Fin)
-  M{Se selecciona al azar un numero de 1 a 3}-->N[Opción 1]
-  N-->H[Se seleccionan dos números al azar 'x','y' desde 0 hasta t-3']
-  H-->L[Se selecciona la posicion x,y]
-  L-->I[Se calcula la distancia horizontal 'h' hasta el fin de la fila]
-  I-->F[Se selecciona un número 'n' al azar entre 3 y 'h']
-  F-->J{Se verifica que no haya ningun elemento en 'n' distancia}
-  J-->|No|K[Se busca una palabra en el arreglo 'b' que tenga 'n' cantidad de caracteres]
-  J-->|Si|M
-  K-->AF[Se añade cada caracter de la palabra desde x,y hasta 'n' distancia a la matriz]
-  M-->O[Opción 2]
-  O-->P[Se seleccionan dos números al azar 'x','y' desde 0 hasta t-3]
-  P-->R[Se selecciona la posicion x,y]
-  R-->S[Se calcula la distancia vertical 'v' hasta el fin de la columna]
-  S-->AJ[Se selecciona un número 'n' al azar entre 3 y 'v']
-  AJ-->J
-  M-->V[Opción 3]
-  V-->Q[Se seleccionan dos números al azar 'x','y' desde 0 hasta t-3]
-  Q-->AA[Se selecciona la posicion x,y]
-  AA-->AB[Se calcula la distancia diagonal 'd' hasta el fin de la matriz]
-  AB-->AK[Se selecciona un número 'n' al azar entre 3 y 'd']
-  AK-->J
-  AF-->AQ[i-=1]
-  AQ-->AN 
+    A(inicio)
+    A -->B[lista de todas las palabras]
+    B --> C[Se crea una ventana con título 'Dificultad' y tamaño 400 x 400]
+    C --> D[Se añade a la ventana un texto y tres botones para elegir el nivel de dificultad]
+    D --> E[Se guarda en una variable el tamaño de la matriz seleccionada dependiendo el nivel de dificultad elegido por el ususario]
+    E --> F[dificultad = tamaño_matriz//10]
+    F --> G[Se crea una matriz tamaño_matriz x tamaño_matriz donde cada elemento es una cadena vacía]
+    G --> H[cantidad_palabras = tamaño_matriz//2]
+    H --> I[Se asigna el tiempo inicial dependiendo el tamaño de la matriz]
+    I --> J[Lista vacía para guardar las palabras que estarán dentro de la sopa de letras]
+    J --> K[Diccionario para guardar las posiciones de cada letra]
+    K --> L[Se crea una ventana con título 'Modos de juego' y tamaño 400 x 400]
+    L --> M[Se añade a la ventana un texto y dos botones para elegir el modo de juego]
+    M --> N{¿Añadir o Predeterminado?}
+    N --> |añadir|O[Se crea una ventana con título 'Añadir palabras' y tamaño 400 x 400]
+    O --> P[Se añade a la ventana un texto, una entrada de texto y dos botones para seguir añadiendo palabras o finalizar este proceso]
+    P --> Q[lista para almacenar palabras ingresadas = 'palabras']
+    Q --> R[Se obtiene la palabra ingresada por el usuario y si está no es una cadena vacía se añade a la lista 'palabras']
+    R --> S[Se borra la palabra ingresa del espacio de ingreso de texto para poder escribir la siguiente cuando se da click en el botón 'agregar']
+    S --> T{¿click en finalizar?}
+    T --> |hay más de las palabras mínimas|U[Se cierra la ventana] -->AN
+    T --> |hay menos de las palabras mínimas|V[Se muestra un mensaje de error y pide añadir más palabras] -->R
+    N --> |predeterminado|W[Se crea un diccionario 'A']
+    W --> X[Se recorre la lista de todas las palabras]
+    X --> Y[Se obtiene la longitud de la palabra en 'ctn']
+    Y --> Z{¿la longitud de la palabra ya es una clave en el diccionario?}
+    Z -->|si|AA[La palabra en mayúsculas se añade a la lista que se encuentra en el valor de esa clave]-->Y
+    Z -->|no|AB[Se añade 'ctn' como clave al diccionario y en la lista del valor se añade la palabra] -->AN
+    AN{cantidad_palabras>0?}
+    AN-->|si|AC{Se selecciona al azar un numero de 1 a 3}
+    AN-->|no|AO[Se recorre la matriz 'A']
+    AO-->AP[Se añade una letra al azar a posiciones vacias]
+    AC{Se selecciona al azar un numero de 1 a 3}-->BA[Opción 1]
+    BA-->BB[Se seleccionan dos números al azar 'x','y' desde 0 hasta tamaño_matriz-3']
+    BB-->BC[Se selecciona la posicion x,y]
+    BC-->BD[Se calcula la distancia horizontal 'h' hasta el fin de la fila]
+    BD-->BE[Se selecciona un número 'n' al azar entre 3 y 'h']
+    BE-->BF{Se verifica que no haya ningun elemento en 'n' distancia}
+    BF-->|No|BG[Se busca una palabra en el arreglo 'b' que tenga 'n' cantidad de caracteres]
+    BF-->|Si|AC
+    BG-->AF[Se añade cada caracter de la palabra desde x,y hasta 'n' distancia a la matriz]
+    AC-->BH[Opción 2]
+    BH-->BI[Se seleccionan dos números al azar 'x','y' desde 0 hasta tamaño_matriz-3]
+    BI-->BJ[Se selecciona la posicion x,y]
+    BJ-->BK[Se calcula la distancia vertical 'v' hasta el fin de la columna]
+    BK-->AJ[Se selecciona un número 'n' al azar entre 3 y 'v']
+    AJ-->BF
+    AC-->BL[Opción 3]
+    BL-->BM[Se seleccionan dos números al azar 'x','y' desde 0 hasta tamaño_matriz-3]
+    BM-->BN[Se selecciona la posicion x,y]
+    BN-->BO[Se calcula la distancia diagonal 'd' hasta el fin de la matriz]
+    BO-->BP[Se selecciona un número 'n' al azar entre 3 y 'd']
+    BP-->BF
+    AF-->AQ[i-=1]
+    AQ-->AN 
+    AN -->DA[Según el nivel de dificultad, se determina el tiempo para resolver la sopa de letras 'tiempo_inicial']
+    DA --> DB[Se obtienen los minutos y los segundos de 'tiempo_inicial']
+    DB --> DC[Cada 1000milisegundos se actualiza el tiempo restando 1 a 'tiempo_inicial']-->CC
+    AP-->AR[Se crea una ventana con título 'sopa de letras']
+    AR-->CA[Se crea una lista con un entero 0]
+    CA --> CB[Se muestra la matriz en la ventana y se guardan las posiciones de cada letra en un diccionario]
+    CB --> CC[Se añaden a la ventana un texto, una entrada de texto, una etiqueta con el puntaje, botón 'agregar', botón 'salir' y el temporizador]
+    CC-->CR{¿se oprimió el botón 'salir'?}-->|si|CS[Se cierra la ventana]-->CQ
+    CR -->|no| CD{¿tiempo == 0?}
+    CD -->|si|CE[Se escribe en una ventana emergente 'Perdiste']-->CF[Se cierra la ventana]-->CQ
+    CD -->|no|CG[Se obtiene la palabra ingresada por el usuario, luego de que oprime el botón agregar y se pone toda en mayúsculas]
+    CG -->CH{¿la palabra está en la lista de palabras dentro?}
+    CH-->|si|CI[Se quita la palabra de la lista de palabras dentro]-->CJ[Se muestra un mensaje de que la palabra es correcta]-->CK[Se añaden puntos dependiendo de la longitud de la palabra encontrada]--> CL[Se cambia de color el fondo de las letras de la palabra encontrada]
+    CH-->|no|CM[Se muestra un mensaje de que la palabra es incorrecta]-->CG
+    CL-->CN{¿palabras_dentro>0?}-->|si|CG
+    CN-->|no|CO[Mensanje: '¡Felicidades, ganaste!']-->CP[Se cierra la ventana luego de 2 segundos]-->CQ(fin)
 ```
 
 ## Funciones de funcionalidad
